@@ -8,3 +8,4 @@ A utility which uses prefabricated templates to assemble code repositories.
 >
 > -Johann Gutenberg
 
+### [Getting Started](#GETTING_STARTED.md)

@@ -10,4 +10,4 @@ A utility which uses prefabricated templates to assemble code repositories.
 
 ### [Getting Started](#GETTING_STARTED.md)
 
-[![Watch the video](https://github.com/Freelium/RepoPress/assets/105679271/d6b6ab60-cee8-4650-9fb5-4c1ca537dc26)]([https://www.youtube.com/watch?v=dQw4w9WgXcQ](https://www.youtube.com/watch?v=bub5kUbNx4M))
+[![Watch the video](https://github.com/Freelium/RepoPress/assets/105679271/d6b6ab60-cee8-4650-9fb5-4c1ca537dc26)](https://www.youtube.com/watch?v=bub5kUbNx4M)

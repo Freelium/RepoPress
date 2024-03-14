@@ -1,7 +1,5 @@
 {
     "component_name": "test-component",
     "project_name": "{{ cookiecutter.component_name.lower().replace('_', '-') }}",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
-    "author": "annonymous@tealium.com",
-    "version": "0.1.0"
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}"
 }

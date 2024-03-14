@@ -12,7 +12,7 @@ on:
 jobs:
   test:
     name: ci tests
-    runs-on: {{ cookiecutter.runner }}
+    runs-on: {{ cookiecutter.ci_runner }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3

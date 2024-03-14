@@ -14,23 +14,6 @@
             "pattern": "^[a-zA-Z-]+$",
             "minLength": 1
           },
-          "project_name": {
-            "type": "string",
-            "pattern": "^[a-zA-Z-]+$"
-          },
-          "project_slug": {
-            "type": "string",
-            "pattern": "^[a-z-]+$"
-          },
-          "author": {
-            "type": "string",
-            "format": "email",
-            "default": "annonymous@tealium.com"
-          },
-          "version": {
-            "type": "string",
-            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
-          },
           "jenkins_shared_lib_version": {
             "type": "string",
             "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"

@@ -2,6 +2,6 @@
     "component_name": "test-component",
     "project_name": "{{ cookiecutter.component_name.lower().replace('_', '-') }}",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
-    "jenkins_shared_lib_version": "7.5.6",
-    "echo": "Hello, World!"
+    "author": "annonymous@tealium.com",
+    "version": "0.1.0"
 }

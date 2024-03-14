@@ -1,0 +1,35 @@
+name: Publish Templates
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-templates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Consolidate JSON files
+        run: |
+          echo "{" > templates.json
+          
+          # Loop through directories and add their JSON contents to the consolidated file
+          for dir in */ ; do
+            if [ -f "${dir}ccplus.json" ]; then
+              echo "\"$(basename $dir)\": $(cat ${dir}ccplus.json)," >> templates.json
+            fi
+          done
+          
+          # Remove the last comma and close the JSON object
+          sed '$ s/,$//' consolidated.json > temp.json && mv temp.json templates.json
+          echo "}" >> consolidated.json
+
+      - name: Upload consolidated JSON as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: templates-json
+          path: templates.json

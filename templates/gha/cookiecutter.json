@@ -1,6 +1,6 @@
 {
     "component_name": "test-component",
-    "project_name": "terraform-{{ cookiecutter.component_name.lower().replace('_', '-') }}",
+    "project_name": "{{ cookiecutter.component_name.lower().replace('_', '-') }}",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
     "author": "Anonymous",
     "version": "0.1.0"

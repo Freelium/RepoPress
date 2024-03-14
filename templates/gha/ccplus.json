@@ -5,10 +5,10 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-        "component_name": {
+        "ci_runner": {
             "type": "string"
         }
     },
-    "required": ["component_name"]
+    "required": ["ci_runner"]
   }
 }

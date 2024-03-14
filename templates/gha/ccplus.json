@@ -23,7 +23,8 @@
         "pattern": "^[a-z-]+$"
       },
       "author": {
-        "type": "email",
+        "type": "string",
+        "format": "email",
         "default": "annonymous@tealium.com"
       },
       "version": {

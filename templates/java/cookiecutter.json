@@ -1,0 +1,9 @@
+{
+    "component_name": "test-component",
+    "project_name": "terraform-{{ cookiecutter.component_name.lower().replace('_', '-') }}",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+    "author": "Anonymous",
+    "jenkins_shared_lib_version": "7.5.6",
+    "echo": "Hello, World!",
+    "version": "0.1.0"
+}

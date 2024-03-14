@@ -1,31 +1,14 @@
 {
   "description": "Basic GitHub Action workflow",
-  "requirements": {
+  "labels": ["cicd", "gha"],
+  "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Basic GHA Workflow",
     "type": "object",
     "properties": {
-      "workflows": {
-        "type": "array",
-        "title": "Choose workflow(s)",
-        "description": "Select the prebaked workflow(s) that will be used in this repository",
-        "items": {
-          "type": "string",
-          "enum": ["ci", "version management", "wip", "release"]
-        },
-        "uniqueItems": true,
-        "minItems": 1
-      }
+        "component_name": {
+            "type": "string"
+        }
     },
-    "required": ["workflows"]
-  },
-  "labels": ["cicd", "gha"]
-}
-
-{
-    "component_name": "test-component",
-    "project_name": "terraform-{{ cookiecutter.component_name.lower().replace('_', '-') }}",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
-    "author": "Anonymous",
-    "version": "0.1.0"
+    "required": ["component_name"]
+  }
 }

@@ -2,120 +2,9 @@ import React, { useState } from 'react';
 import { Drawer, Box, Button, Grid, Card, CardContent, Typography, Chip, FormControlLabel, Checkbox } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
+import GitHubArtifactFetcher from './GitHubArtifactFetcher';
+import templatesData from './templates.json';
 
-// Simulated data
-const templatesData = {
-  "microservice": {
-    "description": "Microservice Template",
-    "requirements": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Microservice",
-      "type": "object",
-      "properties": {
-        "preset": {
-            "type": "string",
-            "enum": ["java8", "java11", "java17", "quarkus", "spring boot", "jetty"],
-            "description": "The preset to use for the microservice. Valid values are: java8, java11, java17, quarkus, spring boot, jetty"
-        }
-      },
-      "required": ["preset"]
-    },
-    "labels": ["microservice", "java"]
-  },
-  "aws-lambda": {
-    "description": "AWS Lambda Function Template",
-    "requirements": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "AWS Lambda Function",
-      "type": "object",
-      "properties": {
-        "runtime": {
-            "type": "string",
-            "enum": ["java", "python", "nodejs", "dotnet", "go", "ruby", "custom"],
-            "description": "The runtime environment to use for the Lambda function. Valid values are: java, python, nodejs, dotnet, go, ruby, custom"
-        }
-      },
-      "required": ["runtime"]
-    },
-    "labels": ["aws", "lambda"]
-  },
-  "java-build": {
-    "description": "Java Build Template",
-    "requirements": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Java Build",
-      "type": "object",
-      "properties": {
-        "build-tool": {
-            "type": "string",
-            "enum": ["maven", "gradle"],
-            "description": "The build tool to use"
-        }
-      },
-      "required": ["build-tool"]
-    },
-    "labels": ["java", "build"]
-  },
-  "gha-repo-admin": {
-    "description": "GitHub Repository Administration Template",
-    "requirements": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Repo administration",
-      "type": "object",
-      "properties": {
-        "isAction": {
-          "type": "boolean",
-          "description": "Will this repo contain a github action that may be used in external workflows?"
-        },
-        "access": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "team": {
-                "type": "string",
-                "enum": ["team1", "team2", "team3"],
-                "description": "The team's github slug"
-              },
-              "grant": {
-                "type": "string",
-                "enum": ["read", "write", "admin"],
-                "description": "The level of access to grant to the team"
-              }
-            },
-            "required": ["team", "grant"]
-          },
-          "description": "The teams and their access levels to the repository"
-        }
-      },
-      "required": ["isAction", "access"]
-    },
-    "labels": ["admin", "gha"]
-  },
-  "gha-cicd-workflow": {
-    "description": "GitHub Action CI/CD Workflow Template",
-    "requirements": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "GHA Workflows",
-      "type": "object",
-      "properties": {
-        "workflows": {
-          "type": "array",
-          "title": "Choose workflows",
-          "description": "Select the prebaked workflows that will be used in this repository",
-          "items": {
-            "type": "string",
-            "enum": ["ci", "version management", "wip", "release"]
-          },
-          "uniqueItems": true,
-          "minItems": 1
-        }
-      },
-      "required": ["workflows"]
-    },
-    "labels": ["cicd", "gha"]
-  }
-};
 
 const getDistinctLabels = (templates) => {
   const labels = new Set();
@@ -129,6 +18,7 @@ const TemplateDashboard = () => {
   const navigate = useNavigate();
   const [selectedLabels, setSelectedLabels] = useState([]);
   const [selectedTemplates, setSelectedTemplates] = useState([]);
+  templatesData = new GitHubArtifactFetcher().fetchLatestArtifact();
 
   const labels = getDistinctLabels(templatesData);
 

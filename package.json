@@ -25,6 +25,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "consolidate:templates": "node scripts/consolidate-templates.js",
+    "prebuild": "yarn consolidate:templates",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

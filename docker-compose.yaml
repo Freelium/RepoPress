@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    environment:
+      - CCP_API_URL=http://api:5000
+
+  api:
+    build:
+      context: https://github.com/Freelium/cookiecutterplus.git#integration
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"

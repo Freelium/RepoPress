@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Drawer, Box, Button, Grid, Card, CardContent, Typography, Chip, FormControlLabel, Checkbox } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
-import GitHubArtifactFetcher from './GitHubArtifactFetcher';
 import templatesData from './templates.json';
 
 
@@ -18,8 +17,6 @@ const TemplateDashboard = () => {
   const navigate = useNavigate();
   const [selectedLabels, setSelectedLabels] = useState([]);
   const [selectedTemplates, setSelectedTemplates] = useState([]);
-  templatesData = new GitHubArtifactFetcher().fetchLatestArtifact();
-
   const labels = getDistinctLabels(templatesData);
 
   const handleLabelChange = (label) => {

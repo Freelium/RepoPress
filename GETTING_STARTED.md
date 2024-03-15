@@ -11,6 +11,11 @@ install dependencies
 yarn install
 ```
 
+Run the app
+```
+docker-compose up --build
+```
+
 ## Available Scripts
 
 In the project directory, you can run:

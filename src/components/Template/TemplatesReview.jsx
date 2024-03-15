@@ -61,7 +61,7 @@ const TemplatesReview = () => {
           <Box key={selectedTemplate.key} sx={{ mb: 4 }}>
             <Typography variant="h6">{selectedTemplate.description}</Typography>
             <Form
-              schema={selectedTemplate.requirements}
+              schema={selectedTemplate.schema}
               validator={validator}
               uiSchema={uiSchema}
               formData={selectedTemplate.formData}

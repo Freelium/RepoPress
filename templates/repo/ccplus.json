@@ -1,27 +1,196 @@
 {
-  "description": "Basic GitHub Action workflow",
-  "labels": ["cicd", "gha"],
+  "description": "Repository Configuration",
+  "labels": ["configuration"],
   "schema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "GitHub Repository Configuration",
+    "description": "Please provide the following details regarding the repository you wish to create.",
     "type": "object",
     "properties": {
-      "component_name": {
+      "repository_name": {
         "type": "string",
-        "pattern": "^[a-zA-Z-]+$",
-        "minLength": 1
+        "minLength": 1,
+        "pattern": "^[a-zA-Z0-9_-]+$"
       },
-      "author": {
-        "type": "string",
-        "format": "email",
-        "default": "annonymous@tealium.com"
+      "action": {
+        "title": "Action",
+        "description": "Is this an action?",
+        "type": "boolean"
       },
-      "version": {
-        "type": "string",
-        "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      "branches": {
+        "title": "Branches",
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "string",
+            "title": "Default",
+            "default": "main"
+          },
+          "nonDefault": {
+            "type": "array",
+            "title": "Non-Default",
+            "items": {
+              "$ref": "#/definitions/branch"
+            },
+            "uniqueItems": true,
+            "minItems": 0,
+            "default": [
+              
+            ]
+          }
+        },
+        "required": [
+          "default"
+        ]
+      },
+      "collaborators": {
+        "title": "Collaborators",
+        "$ref": "#/definitions/grants"
+      },
+      "pages": {
+        "title": "Pages",
+        "description": "Configuration for the GitHub Pages site.",
+        "$ref": "#/definitions/pages"
       }
     },
-    "required": ["component_name"]
+    "required": [
+      "repository_name",
+      "branches",
+      "collaborators"
+    ],
+    "definitions": {
+      "branch": {
+        "type": "object",
+        "title": "Branch",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "protection": {
+            "type": "object",
+            "title": "Protection",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "title": "Enabled",
+                "default": false
+              }
+            }
+          }
+        }
+      },
+      "teamSlugs": {
+        "enum": [
+          "blah",
+          "bub",
+          "meep"
+        ]
+      },
+      "grants": {
+        "type": "object",
+        "title": "Grants",
+        "properties": {
+          "admins": {
+            "type": "array",
+            "title": "Admins",
+            "items": {
+              "title": "",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "title": "team name",
+                  "$ref": "#/definitions/teamSlugs"
+                }
+              }
+            },
+            "uniqueItems": true,
+            "minItems": 1
+          },
+          "teams": {
+            "type": "array",
+            "title": "Teams",
+            "items": {
+              "title": "",
+              "$ref": "#/definitions/team"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+          }
+        },
+        "required": [
+          "admins",
+          "teams"
+        ]
+      },
+      "team": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "team name",
+            "type": "string",
+            "$ref": "#/definitions/teamSlugs"
+          },
+          "permission": {
+            "type": "string",
+            "title": "Permission",
+            "enum": [
+              "read",
+              "write",
+              "maintain"
+            ],
+            "default": "read"
+          }
+        },
+        "required": [
+          "name",
+          "permission"
+        ]
+      },
+      "pages": {
+        "type": "object",
+        "title": "Pages",
+        "description": "Configuration for the GitHub Pages site.",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "default": false
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "enabled": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "visibility": {
+                  "type": "string",
+                  "title": "Visibility",
+                  "default": "Private",
+                  "enum": [
+                    "Private",
+                    "Public"
+                  ]
+                }
+              },
+              "required": [
+                "visibility"
+              ]
+            }
+          },
+          {
+            "required": [
+              "enabled"
+            ]
+          }
+        ]
+      }
+    }
   }
 }
 
-    

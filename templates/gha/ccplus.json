@@ -9,13 +9,13 @@
         "type": "string",
         "enum": ["ubuntu-latest", "ubuntu-22.04", "ubuntu-20.04"]
       },
-      "component_name": {
+      "workflow_name": {
         "type": "string",
         "pattern": "^[a-zA-Z-]+$",
         "minLength": 1
       }
     },
-    "required": ["runner", "component_name"]
+    "required": ["runner", "workflow_name"]
   }
 }
 

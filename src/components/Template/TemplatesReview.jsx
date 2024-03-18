@@ -3,16 +3,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import Form from '@rjsf/mui';
 import validator from '@rjsf/validator-ajv8';
+import TemplateSubmit from './TemplateSubmit';
 
 const TemplatesReview = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedTemplateKey, setSelectedTemplateKey] = useState(location.state?.selectedTemplates[0].key);
-  const [selectedTemplates] = useState(location.state?.selectedTemplates);
+  const [selectedTemplates, setSelectedTemplates] = useState(location.state?.selectedTemplates);
 
   const uiSchema = {
     "ui:submitButtonOptions": {
-      "submitText": "Save changes",
+      "norender": true,
     }
   };
 
@@ -24,8 +25,19 @@ const TemplatesReview = () => {
     setSelectedTemplateKey(key);
   };
 
+  const updateTemplateFormData = (key, formData) => {
+    const updatedTemplates = selectedTemplates.map(template => {
+      if (template.key === key) {
+        return { ...template, formData };
+      }
+      return template;
+    });
+    setSelectedTemplates(updatedTemplates);
+  };
+
   const handleCreateRepo = () => {
     console.log('Creating repo with the following templates:', JSON.stringify(selectedTemplates));
+    new TemplateSubmit(selectedTemplates).submit();
   };
 
   const selectedTemplate = selectedTemplates.find(t => t.key === selectedTemplateKey);
@@ -65,7 +77,7 @@ const TemplatesReview = () => {
               validator={validator}
               uiSchema={uiSchema}
               formData={selectedTemplate.formData}
-              onSubmit={({ formData }) => selectedTemplate.formData = formData}
+              onChange={({ formData }) => updateTemplateFormData(selectedTemplate.key, formData)}
             />
           </Box>
         )}

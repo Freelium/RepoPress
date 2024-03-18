@@ -10,7 +10,7 @@ services:
     depends_on:
       - api
     environment:
-      - CCP_API_URL=http://api:5000
+      - REACT_APP_CCP_API_URL=http://api:5000
 
   api:
     build:

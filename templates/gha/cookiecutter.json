@@ -1,5 +1,4 @@
 {
-    "component_name": "test-component",
-    "project_name": "{{ cookiecutter.component_name.lower().replace('_', '-') }}",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}"
+    "runner": "ubuntu-latest",
+    "workflow_name": "my workflow"
 }

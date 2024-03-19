@@ -1,7 +1,6 @@
 {
     "repository_name": "test-component",
-    "project_name": "{{ cookiecutter.component_name.lower().replace('_', '-') }}",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+    "repository_slug": "{{ cookiecutter.repository_name.lower().replace(' ', '_') }}",
     "branches": {},
     "collaborators": {}
 }

@@ -1,4 +1,6 @@
 {
+    "repository_name": "test-component",
+    "repository_slug": "{{ cookiecutter.repository_name.lower().replace(' ', '_') }}",
     "runner": "ubuntu-latest",
     "workflow_name": "my workflow"
 }

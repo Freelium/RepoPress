@@ -5,6 +5,11 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
+      "repository_name": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-zA-Z0-9_-]+$"
+      },
       "runner": {
         "type": "string",
         "enum": ["ubuntu-latest", "ubuntu-22.04", "ubuntu-20.04"]

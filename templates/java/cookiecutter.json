@@ -1,4 +1,6 @@
 {
+    "repository_name": "test-component",
+    "repository_slug": "{{ cookiecutter.repository_name.lower().replace(' ', '_') }}",
     "java_version": "8",
     "jenkins_shared_lib_version": "7.5.6",
     "echo": "Hello, World!"

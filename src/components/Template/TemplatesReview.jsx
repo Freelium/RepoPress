@@ -37,6 +37,10 @@ const TemplatesReview = () => {
 
   const handleCreateRepo = () => {
     console.log('Creating repo with the following templates:', JSON.stringify(selectedTemplates));
+    const context = {
+      selectedTemplates,
+      
+    }
     new TemplateSubmit(selectedTemplates).submit();
   };
 
@@ -75,6 +79,7 @@ const TemplatesReview = () => {
             <Form
               schema={selectedTemplate.schema}
               validator={validator}
+              liveValidate={true}
               uiSchema={uiSchema}
               formData={selectedTemplate.formData}
               onChange={({ formData }) => updateTemplateFormData(selectedTemplate.key, formData)}

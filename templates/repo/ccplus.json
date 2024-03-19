@@ -1,6 +1,7 @@
 {
   "description": "Repository Configuration",
   "labels": ["configuration"],
+  "required": true,
   "schema": {
     "title": "GitHub Repository Configuration",
     "description": "Please provide the following details regarding the repository you wish to create.",

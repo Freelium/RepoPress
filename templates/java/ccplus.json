@@ -23,6 +23,6 @@
             "pattern": "^[a-zA-Z\\-\\s]+$"
           }
       },
-      "required": ["java_version", "component_name"]
+      "required": ["java_version"]
     }
   }

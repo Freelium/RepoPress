@@ -10,11 +10,25 @@ const TemplatesReview = () => {
   const location = useLocation();
   const [selectedTemplateKey, setSelectedTemplateKey] = useState(location.state?.selectedTemplates[0].key);
   const [selectedTemplates, setSelectedTemplates] = useState(location.state?.selectedTemplates);
+  const [outputPath, setOutputPath] = useState('');
 
-  const uiSchema = {
-    "ui:submitButtonOptions": {
-      "norender": true,
+  const getUISchema = (template) => {
+    let uiSchema = {
+      "ui:submitButtonOptions": {
+        "norender": true,
+      }
     }
+
+    if (!template.required) {
+      uiSchema = {
+        ...uiSchema,
+        "repository_name": {
+          "ui:widget": "hidden"
+        }
+      }
+    }
+
+    return uiSchema;
   };
 
   const handleBackToDashboard = () => {
@@ -25,15 +39,30 @@ const TemplatesReview = () => {
     setSelectedTemplateKey(key);
   };
 
-  const updateTemplateFormData = (key, formData) => {
-    const updatedTemplates = selectedTemplates.map(template => {
-      if (template.key === key) {
-        return { ...template, formData };
+  const updateTemplateFormData = (template, formData) => {
+    if (template.key == 'repo') {
+      propagateShared(template);
+    }
+    const updatedTemplates = selectedTemplates.map(temp => {
+      if (temp.key === template.key) {
+        return { ...temp, formData };
       }
-      return template;
+      return temp;
     });
     setSelectedTemplates(updatedTemplates);
   };
+
+  const propagateShared = (template) => {
+    setOutputPath(template.formData?.repository_name);
+    const updatedTemplates = selectedTemplates.map(temp => {
+      if (!!template.formData) {
+        let formData = temp.formData || {};
+        formData.repository_name = template.formData.repository_name;
+        temp.formData = formData;
+      }
+    });
+    setSelectedTemplates(updatedTemplates);
+  }
 
   const handleCreateRepo = () => {
     console.log('Creating repo with the following templates:', JSON.stringify(selectedTemplates));
@@ -41,7 +70,7 @@ const TemplatesReview = () => {
       selectedTemplates,
       
     }
-    new TemplateSubmit(selectedTemplates).submit();
+    new TemplateSubmit(outputPath, selectedTemplates).submit();
   };
 
   const selectedTemplate = selectedTemplates.find(t => t.key === selectedTemplateKey);
@@ -80,9 +109,9 @@ const TemplatesReview = () => {
               schema={selectedTemplate.schema}
               validator={validator}
               liveValidate={true}
-              uiSchema={uiSchema}
+              uiSchema={getUISchema(selectedTemplate)}
               formData={selectedTemplate.formData}
-              onChange={({ formData }) => updateTemplateFormData(selectedTemplate.key, formData)}
+              onChange={({ formData }) => updateTemplateFormData(selectedTemplate, formData)}
             />
           </Box>
         )}

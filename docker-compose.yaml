@@ -10,7 +10,7 @@ services:
     depends_on:
       - api
     environment:
-      - REACT_APP_CCP_API_URL=http://api:5000
+      - CCP_API_URL=http://localhost:5000
 
   api:
     build:
@@ -18,3 +18,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
+    volumes:
+      - ./output:/app/output

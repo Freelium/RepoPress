@@ -18,8 +18,8 @@ import axios from 'axios';
 import constants from './constants.json';
 
 class TemplateSubmit {
-  constructor(context) {
-    this.payload = this.prepPayload(context);
+  constructor(outputPath, context) {
+    this.payload = this.prepPayload(outputPath, context);
     this.axiosInstance = axios.create({
       baseURL: process.env.REACT_APP_API_BASE_URL,
       headers: {
@@ -28,9 +28,9 @@ class TemplateSubmit {
     });
   }
 
-  prepPayload(context) {
+  prepPayload(outputPath, context) {
     return {
-      template_payloads: context.selectedTemplates.map(template => {
+      template_payloads: context.map(template => {
         return {
           name: template.key,
           template_context: constants.template_context,
@@ -38,14 +38,16 @@ class TemplateSubmit {
           ccplus: template.formData
         };
       }),
-      output_path: context.outputPath,
+      output_path: outputPath,
       no_input: constants.no_input
     };
   }
 
   async submit() {
     try {
-      const response = await this.axiosInstance.post('/generate', this.payload);
+      const apiUrl = window._env_.CCP_API_URL;
+      console.log('Payload', this.payload);
+      const response = await this.axiosInstance.post(`${apiUrl}/generate`, this.payload);
       return response.data;
     } catch (error) {
       console.error('Error making POST request:', error);

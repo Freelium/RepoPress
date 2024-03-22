@@ -1,4 +1,4 @@
-name: "{{ cookiecutter.project_name }}"
+name: "{{ cookiecutter.repository_name }}"
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ on:
 jobs:
   test:
     name: ci tests
-    runs-on: {{ cookiecutter.ci_runner }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3

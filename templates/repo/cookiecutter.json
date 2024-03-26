@@ -1,6 +1,8 @@
 {
     "repository_name": "test-component",
     "repository_slug": "{{ cookiecutter.repository_name.lower().replace(' ', '_') }}",
+    "organization": "Freelium",
+    "repo_man_home": "RepoPress",
     "branches": {},
     "collaborators": {}
 }

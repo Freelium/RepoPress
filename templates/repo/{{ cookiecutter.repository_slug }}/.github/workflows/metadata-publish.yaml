@@ -1,0 +1,38 @@
+name: Publish RepoMan Metadata
+
+on:
+  push:
+    paths:
+      - ".repo-man/metadata"
+
+jobs:
+  publish-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Git Config
+        run: |
+          # We should use a system user here
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+
+      - name: Clone Target Repository
+        run: git clone https://github.com/{{ cookiecutter.organization }}/{{ cookiecutter.repo_man_home }}.git
+
+      - name: Copy File to Target Repository
+        run: |
+        mkdir -p {{ cookiecutter.repo_man_home }}/.repo-man/{{ cookiecutter.repository_slug }}
+        cp .repo-man/metadata.json {{ cookiecutter.repo_man_home }}/.repo-man/{{ cookiecutter.repository_slug }}/metadata.json
+
+      - name: Commit and Push to Target Repository
+        run: |
+          cd TARGET_REPO
+          git add .
+          git commit -m "Updating metadata for {{ cookiecutter.repository_slug }} repo"
+          git push
+        env:
+          TARGET_REPO: "{{ cookiecutter.repo_man_home }}"
+          TARGET_BRANCH: 'main'
+          GH_PAT: ${{ secrets.REPO_MAN_PAT }}

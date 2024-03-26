@@ -1,0 +1,11 @@
+name: 'Repository Manager Action'
+description: 'Sets up repository configurations'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token for authentication'
+    required: true
+  METADATA_JSON:
+    required: true
+runs:
+  using: 'node20'
+  main: 'index.js'

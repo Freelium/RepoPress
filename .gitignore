@@ -24,3 +24,5 @@ yarn-error.log*
 
 src/components/Template/templates.json
 src/components/Template/constants.json
+
+output/

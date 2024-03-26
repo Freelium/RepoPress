@@ -1,0 +1,52 @@
+name: Repository Management
+
+on: 
+  push:
+    branches:
+      - main
+    paths:
+      - '.repo-man/**'
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Identify updated files and set matrix
+        id: set-matrix
+        run: |
+          FILES_JSON=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} 'specified-directory/**' | jq -R -s -c 'split("\n")[:-1] | map(select(length > 0))')
+          MATRIX_JSON=$(echo $FILES_JSON | jq '[.[] | {"file": .}]')
+          echo "MATRIX_JSON<<EOF" >> $GITHUB_ENV
+          echo $MATRIX_JSON >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "::set-output name=matrix::${MATRIX_JSON}"
+        shell: bash
+
+  process-files:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJson(needs.prepare.outputs.matrix)}}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Process file with custom action
+        uses: ./.github/actions/action-repo-man
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          METADATA_JSON: ${{ matrix.file }}

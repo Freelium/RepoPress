@@ -169,18 +169,20 @@
             },
             "then": {
               "properties": {
-                "visibility": {
+                "branch": {
                   "type": "string",
-                  "title": "Visibility",
-                  "default": "Private",
-                  "enum": [
-                    "Private",
-                    "Public"
-                  ]
+                  "description": "The name of the branch to publish from",
+                  "enum": ["main", "gh-pages"]
+                },
+                "directory": {
+                  "type": "string",
+                  "description": "The directory to publish from",
+                  "enum": ["/", "/docs"]
                 }
               },
               "required": [
-                "visibility"
+                "branch",
+                "directory"
               ]
             }
           },

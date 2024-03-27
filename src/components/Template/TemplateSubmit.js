@@ -40,10 +40,12 @@ class TemplateSubmit {
       }),
       output_path: outputPath,
       no_input: constants.no_input,
-      persistence: [{
-        persistence_type: constants.persistence_type,
-        persistence_path: outputPath
-      }]
+      persistence: {
+        gh: {
+          destination: outputPath,
+          repo_type: constants.persistence_type
+        },
+      }
     };
   }
 

@@ -46,6 +46,7 @@ writeJson(templates, templatesFile);
 const constants = {
   template_context: "https://github.com/Freelium/RepoPress",
   template_path_base: "templates/",
+  persistence_type: "gh",
   no_input: true,
 };
 writeJson(constants, constantsFile);

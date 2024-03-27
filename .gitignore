@@ -26,3 +26,5 @@ src/components/Template/templates.json
 src/components/Template/constants.json
 
 output/
+.vscode/
+node_modules/

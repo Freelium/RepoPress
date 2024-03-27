@@ -1,0 +1,50 @@
+{
+  "template_payloads": [
+    {
+      "name": "repo",
+      "template_context": "https://github.com/Freelium/RepoPress",
+      "template_path": "templates/repo",
+      "ccplus": {
+        "repository_details": {
+          "owner": "freelium",
+          "name": "meep"
+        },
+        "branches": {
+          "default": "develop",
+          "nonDefault": [
+            {
+              "protection": {
+                "enabled": true
+              },
+              "name": "main"
+            }
+          ]
+        },
+        "collaborators": {
+          "admins": [
+            {
+              "name": "blah"
+            }
+          ],
+          "teams": [
+            {
+              "permission": "write",
+              "name": "bub"
+            },
+            {
+              "permission": "write",
+              "name": "meep"
+            }
+          ]
+        },
+        "pages": {
+          "enabled": true,
+          "branch": "gh-pages",
+          "directory": "/docs"
+        },
+        "action": true
+      }
+    }
+  ],
+  "no_input": true
+}

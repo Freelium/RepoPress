@@ -7,26 +7,14 @@
     "description": "Please provide the following details regarding the repository you wish to create.",
     "type": "object",
     "properties": {
-      "repository_details": {
-        "title": "Repository Details",
-        "description": "Please provide the following details regarding the repository you wish to create.",
-        "type": "object",
-        "properties": {
-          "owner": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "^[a-zA-Z0-9_-]+$",
-            "default": "freelium"
-          },
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "^[a-zA-Z0-9_-]+$"
-          }
-        },
-        "required": [
-          "owner",
-          "name"
+      "repository_name": {
+        "title": "Repository Name",
+        "description": "The name of the repository to create. <owner>/<repo name>",
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,38}/[a-zA-Z0-9_.-]+$",
+        "examples": [
+          "freelium/my-new-repo"
         ]
       },
       "action": {
@@ -71,7 +59,7 @@
       }
     },
     "required": [
-      "repository_details",
+      "repository_name",
       "branches",
       "collaborators"
     ],

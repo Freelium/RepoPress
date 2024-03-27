@@ -41,9 +41,9 @@ class TemplateSubmit {
       output_path: outputPath,
       no_input: constants.no_input,
       persistence: {
-        gh: {
+        [constants.persistence_type]: {
           destination: outputPath,
-          repo_type: constants.persistence_type
+          repo_type: constants.repo_visibility
         },
       }
     };

@@ -3,7 +3,7 @@ name: Repository Management
 on: 
   push:
     branches:
-      - test-man
+      - main
     paths:
       - '.repo-man/**/*.json'
 

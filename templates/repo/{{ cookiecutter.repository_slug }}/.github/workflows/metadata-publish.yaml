@@ -35,4 +35,4 @@ jobs:
         env:
           TARGET_REPO: "{{ cookiecutter.repo_man_home }}"
           TARGET_BRANCH: 'main'
-          GH_PAT: ${{ secrets.REPO_MAN_PAT }}
+          GH_PAT: {% raw %}${{ secrets.REPO_MAN_PAT }}{% endraw %}
